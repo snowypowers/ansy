@@ -1,0 +1,11 @@
+{
+  "name": "ansy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Yak Jun Xiang <snowypowers@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "qrcodejs": "^1.0.0",
+    "wif": "^2.0.6"
+  }
+}
