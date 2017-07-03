@@ -1,0 +1,36 @@
+@import url("node_modules/picnic/releases/picnic.min.css");
+
+.container {
+  margin: 0 auto;
+  max-width: 960px;
+}
+
+.qr-block {
+  display: inline-block;
+  border: 3px black;
+  text-align: center;
+}
+
+.qr {
+  width: 180px;
+  height: 180px;
+}
+
+.wallet-input {
+  text-align: right;
+  width: 100px;
+  border: 0;
+}
+
+#wallet {
+  margin: 0 20px;
+}
+
+#splash {
+  text-align: center;
+}
+
+@media print {
+  #splash {display:none}
+  #form {display: none}
+}

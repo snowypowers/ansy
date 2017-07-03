@@ -1,13 +1,69 @@
 <html>
 
 <head>
-
+  <meta charset="utf-8">
+  <title>Ansy - Minimal Antshares Paper Wallet</title>
 </head>
 
 <body>
-
+  <div id="main" class="container flex one center">
+    <div id="splash" class="full">
+      <h1>Ansy</h1>
+      <p> Convert your keys into a paper wallet </p>
+    </div>
+    <div class="full flex three center">
+      <div id="form">
+        <input id="addr" class="stack" placeholder="Address" />
+        <input id="public" class="stack" placeholder="Public Key" />
+        <input id="private" class="stack" placeholder="Private Key" />
+        <button id="gen" class="stack icon-paper-plane">Generate</button>
+      </div>
+    </div>
+    <div id="wallet" class="full flex two">
+      <article class="card paper">
+        <header>
+          <div class="flex grow">
+            <span>Ansy</span>
+            <input class="wallet-input" placeholder="Name Your Wallet!">
+          </div>
+        </header>
+        <div>
+          <div class="flex two">
+            <div class="qr-block">
+              <canvas class="qr" id="addrQR"></canvas>
+              <p>Address</p>
+            </div>
+            <div class="qr-block">
+              <canvas class="qr" id="pubQR"></canvas>
+              <p>Public Key</p>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="card paper">
+        <header>
+          <div class="flex grow">
+            <span>Private Keys</span>
+            <input class="wallet-input" placeholder="">
+          </div>
+        </header>
+        <div>
+          <div class="flex two">
+            <div class="qr-block">
+              <canvas class="qr" id="hexQR"></canvas>
+              <p>HEX</p>
+            </div>
+            <div class="qr-block">
+              <canvas class="qr" id="wifQR"></canvas>
+              <p>WIF</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+  </div>
+  <script src="bundle.js"></script>
 </body>
-
-<script src="./index.js" />
 
 </html>
