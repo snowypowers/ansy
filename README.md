@@ -26,3 +26,7 @@ Alternatively,
 ```
 $ yarn install
 ```
+
+# License
+
+MIT
