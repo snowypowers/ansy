@@ -9,7 +9,6 @@ const getPublicKey = (privateKey) => {
   let ec = EC.getCurveByName('secp256r1')
   let privateKeyBuffer = new Buffer(privateKey, 'hex')
   let curvePt = ec.G.multiply(BigInteger.fromBuffer(privateKeyBuffer))
-  console.log(curvePt.getEncoded(true).toString('hex'))
   return curvePt.getEncoded(true).toString('hex')
 }
 
