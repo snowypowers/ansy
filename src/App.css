@@ -1,0 +1,44 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.flex.column {
+flex-direction: column;
+}
+
+#root {
+  height: 100%;
+}
+.App {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 960px;
+}
+
+.middle {
+  margin: 0 auto;
+}
+
+#splash {
+  text-align: center;
+  flex:none;
+}
+
+#form {
+  flex:1;
+}
+
+#foot {
+  flex:none;
+  min-height: 20%
+}
+
+@media print {
+  #splash {display:none}
+  #form {display: none}
+  #foot {display: none}
+}

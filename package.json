@@ -5,18 +5,19 @@
   "author": "Yak Jun Xiang <snowypowers@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "browserify -t browserify-css index.js -o bundle.js",
-    "dev": "watchify -t browserify-css index.js -o bundle.js"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
     "picnic": "^6.4.0",
     "qrcode": "^0.8.2",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-scripts": "^1.0.10",
     "secp256k1": "^3.3.0",
     "wif": "^2.0.6"
   },
-  "devDependencies": {
-    "browserify": "^14.4.0",
-    "browserify-css": "^0.10.1",
-    "watchify": "^3.9.0"
-  }
+  "devDependencies": {}
 }
