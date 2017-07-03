@@ -4,8 +4,19 @@
   "main": "index.js",
   "author": "Yak Jun Xiang <snowypowers@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "browserify -t browserify-css index.js -o bundle.js",
+    "dev": "watchify -t browserify-css index.js -o bundle.js"
+  },
   "dependencies": {
-    "qrcodejs": "^1.0.0",
+    "picnic": "^6.4.0",
+    "qrcode": "^0.8.2",
+    "secp256k1": "^3.3.0",
     "wif": "^2.0.6"
+  },
+  "devDependencies": {
+    "browserify": "^14.4.0",
+    "browserify-css": "^0.10.1",
+    "watchify": "^3.9.0"
   }
 }
