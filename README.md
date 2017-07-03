@@ -9,6 +9,11 @@ Minimal Antshare paper wallet generator
 
 Thus, many mainstream paper wallet generators do not support generating wallets for Antshares.
 
+# What you need?
+
+Your Antshares Address and Private Key.
+
+**This is not a replacement to generate new Antshares Wallets. This merely helps you save them in a nice paper format**
 
 # How
 
