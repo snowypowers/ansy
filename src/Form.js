@@ -29,6 +29,9 @@ class Form extends Component {
       wallets: this.state.wallets.concat([newWallet]),
       error: ''
     })
+
+    this.address.value = ''
+    this.private.value = ''
   }
   WalletList(props) {
     const listItems = props.map((p) =>
