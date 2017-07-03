@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Wallet from './Wallet.js'
 
+const centerText = {textAlign: 'center'}
+
 class Form extends Component {
   constructor(props) {
     super(props)
@@ -11,7 +13,7 @@ class Form extends Component {
     this.genWallet = this.genWallet.bind(this);
   }
   genWallet() {
-    if (this.address.value === '' || this.public.value === '' || this.private.value === '') {
+    if (this.address.value === '' || this.private.value === '') {
       this.setState({ error: 'Empty Field!' })
       return
     }
@@ -21,7 +23,6 @@ class Form extends Component {
     }
     let newWallet = {
       address: this.address.value,
-      public: this.public.value,
       private: this.private.value
     }
     this.setState({
@@ -31,7 +32,7 @@ class Form extends Component {
   }
   WalletList(props) {
     const listItems = props.map((p) =>
-      <Wallet key={p.address} address={p.address} public={p.public} private={p.private} />
+      <Wallet key={p.address} address={p.address} private={p.private} />
     )
     return (
       <div className="wallets">{listItems}</div>
@@ -39,24 +40,24 @@ class Form extends Component {
   }
   errorHTML() {
     return (
-      <p><span className="label error">{this.state.error}</span></p>
+      <p style={centerText}><span className="label error">{this.state.error}</span></p>
     )
   }
   render() {
+
     return (
       <div className="flex column center ">
         <div id="form" className="third middle">
           <input id="addr" className="stack" placeholder="Address" ref={(i) => { this.address = i }} />
-          <input id="public" className="stack" placeholder="Public Key" ref={(i) => { this.public = i }} />
           <input id="private" className="stack" placeholder="Private Key" ref={(i) => { this.private = i }} />
-          <button id="gen" className="stack icon-paper-plane" onClick={this.genWallet}>Generate</button>
+          <button id="gen" className="stack" onClick={this.genWallet} style={centerText}>Generate</button>
           {this.state.error ? this.errorHTML() : null}
         </div>
-        <Wallet address="AbUKT3KXcAMpLD1MsAMRNhgN3hqmzEqqVP" public="0363fccf589ec6c32adf51bf7d38257c199a35fae3a81a97fed4ba0663433e9d10" private="eaca31f751b771ec4ee629e0eca643a27f0c738e5ec8b26bd864a864aaf765a3" />
+        <Wallet address="AbUKT3KXcAMpLD1MsAMRNhgN3hqmzEqqVP"
+        private="eaca31f751b771ec4ee629e0eca643a27f0c738e5ec8b26bd864a864aaf765a3" />
         {this.WalletList(this.state.wallets)}
       </div>
     )
   }
 }
-
 export default Form;

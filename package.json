@@ -10,7 +10,10 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "homepage": ".",
   "dependencies": {
+    "bigi": "^1.4.2",
+    "ecurve": "^1.0.5",
     "picnic": "^6.4.0",
     "qrcode": "^0.8.2",
     "react": "^15.6.1",
