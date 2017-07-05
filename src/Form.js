@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Wallet from './Wallet.js'
-
+import  crypto  from './crypto.js'
 const centerText = { textAlign: 'center' }
 
 class Form extends Component {
@@ -13,12 +13,20 @@ class Form extends Component {
     this.genWallet = this.genWallet.bind(this);
   }
   genWallet() {
-    if (this.address.value === '' || this.private.value === '') {
+    if (this.private.value === '') {
       this.setState({ error: 'Empty Field!' })
       return
     }
-    if (this.state.wallets.find((w) => this.address.value === w.address)) {
+    if (this.private.value.length != 64) {
+      this.setState({ error: 'Wrong Private Key Length!' })
+    }
+    if (this.state.wallets.find((w) => this.private.value === w.private)) {
       this.setState({ error: 'Duplicate Wallet' })
+      return
+    }
+    let verifyAddr = crypto.getAddrFromPri(this.private.value)
+    if (this.address.value != '' && this.address.value != verifyAddr) {
+      this.setState({ error: 'Address Verification Failed' })
       return
     }
     let newWallet = {
@@ -50,8 +58,8 @@ class Form extends Component {
     return (
       <div className="flex column center">
         <div id="form" className="third middle">
-          <input id="addr" className="stack" placeholder="Address" ref={(i) => { this.address = i }} />
           <input id="private" className="stack" placeholder="Private Key" ref={(i) => { this.private = i }} />
+          <input id="addr" className="stack" placeholder="Address (Optional)" ref={(i) => { this.address = i }} />
           <button id="gen" className="stack" onClick={this.genWallet} style={centerText}>Generate</button>
           {this.state.error ? this.errorHTML() : null}
         </div>

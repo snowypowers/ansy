@@ -8,8 +8,14 @@ class Wallet extends Component {
     super(props)
     let wif = crypto.getWifFromHex(props.private)
     let publicKey = crypto.getPubFromHex(props.private)
+    let address = crypto.getAddrFromPri(props.private)
     console.log(crypto.getAddrFromPri(props.private))
-    this.state = { wif, public: publicKey }
+    this.state = {
+      address,
+      wif,
+      private: props.private,
+      public: publicKey
+    }
   }
 
   render() {
@@ -19,12 +25,12 @@ class Wallet extends Component {
         <article className="card paper">
           <header>
             <div className="flex grow">
-              <input className="wallet-input" placeholder={this.props.address} />
+              <input className="wallet-input" placeholder={this.state.address} />
             </div>
           </header>
           <div>
             <div className="flex two">
-              <QR name="Address" str={this.props.address} />
+              <QR name="Address" str={this.state.address} />
               <QR name="Public Key" str={this.state.public} />
             </div>
           </div>
@@ -38,7 +44,7 @@ class Wallet extends Component {
           </header>
           <div>
             <div className="flex two">
-              <QR name="HEX" str={this.props.private} />
+              <QR name="HEX" str={this.state.private} />
               <QR name="WIF" str={this.state.wif} />
             </div>
           </div>
