@@ -21,7 +21,6 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts": "^1.0.10",
-    "secp256k1": "^3.3.0",
     "wif": "^2.0.6"
   },
   "devDependencies": {}

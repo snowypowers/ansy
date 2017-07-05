@@ -3,8 +3,6 @@ import QR from './QR.js'
 import crypto from './crypto.js'
 import './Wallet.css'
 
-
-
 class Wallet extends Component {
   constructor(props) {
     super(props)
