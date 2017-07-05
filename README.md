@@ -5,13 +5,11 @@ Minimal Antshare paper wallet generator
 # Why?
 
 - Antshares uses an elliptic curve different from Bitcoin.
-- Antshares, unlike other crypto-currencies, do not use the public key as the address.
-
-Thus, many mainstream paper wallet generators do not support generating wallets for Antshares.
+- Simple and easy to use.
 
 # What you need?
 
-Your Antshares Address and Private Key.
+Your Antshares Private Key. Your address can be used for verifying that your private key works.
 
 **This is not a replacement to generate new Antshares Wallets. This merely helps you save them in a nice paper format**
 
