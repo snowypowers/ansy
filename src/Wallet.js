@@ -1,27 +1,17 @@
 import React, { Component } from 'react'
-import WIF from 'wif'
-import EC from 'ecurve'
-import BigInteger from 'bigi'
 import QR from './QR.js'
+import crypto from './crypto.js'
 import './Wallet.css'
 
-const getPublicKey = (privateKey) => {
-  let ec = EC.getCurveByName('secp256r1')
-  let privateKeyBuffer = new Buffer(privateKey, 'hex')
-  let curvePt = ec.G.multiply(BigInteger.fromBuffer(privateKeyBuffer))
-  return curvePt.getEncoded(true).toString('hex')
-}
+
 
 class Wallet extends Component {
   constructor(props) {
     super(props)
-    let wif = WIF.encode(128, new Buffer(props.private, 'hex'), true)
-    let publicKey = getPublicKey(props.private)
+    let wif = crypto.getWifFromHex(props.private)
+    let publicKey = crypto.getPubFromHex(props.private)
+    console.log(crypto.getAddrFromPri(props.private))
     this.state = { wif, public: publicKey }
-  }
-
-  componentDidMount() {
-    this.wif = WIF.encode(128, new Buffer(this.props.private, 'hex'), true)
   }
 
   render() {
