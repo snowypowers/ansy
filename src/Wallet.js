@@ -38,7 +38,6 @@ class Wallet extends Component {
           <header>
             <div className="flex grow">
               <input className="wallet-input" defaultValue="Private Keys" style={leftAlign} />
-              <input className="wallet-input" placeholder="" />
             </div>
           </header>
           <div>
