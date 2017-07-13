@@ -31,7 +31,7 @@ class Form extends Component {
       return
     }
     let newWallet = {
-      address: this.address.value,
+      address: verifyAddr,
       private: this.private.value
     }
     this.setState({
