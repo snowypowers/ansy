@@ -9,7 +9,6 @@ class Wallet extends Component {
     let wif = crypto.getWifFromHex(props.private)
     let publicKey = crypto.getPubFromHex(props.private)
     let address = crypto.getAddrFromPri(props.private)
-    console.log(crypto.getAddrFromPri(props.private))
     this.state = {
       address,
       wif,

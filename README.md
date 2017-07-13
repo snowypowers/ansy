@@ -11,7 +11,7 @@ Minimal Antshare paper wallet generator
 
 Your Antshares Private Key. Your address can be used for verifying that your private key works.
 
-**This is not a replacement to generate new Antshares Wallets. This merely helps you save them in a nice paper format**
+You can generate a new address if you do not have one.
 
 # How
 

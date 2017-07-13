@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Wallet from './Wallet.js'
-import  crypto  from './crypto.js'
+import crypto from './crypto.js'
 const centerText = { textAlign: 'center' }
 
 class Form extends Component {
@@ -10,7 +10,8 @@ class Form extends Component {
       wallets: [],
       error: ''
     }
-    this.genWallet = this.genWallet.bind(this);
+    this.genWallet = this.genWallet.bind(this)
+    this.genKey = this.genKey.bind(this)
   }
   genWallet() {
     if (this.private.value === '') {
@@ -41,6 +42,17 @@ class Form extends Component {
     this.address.value = ''
     this.private.value = ''
   }
+
+  genKey() {
+    let privateKey = crypto.genPriKey()
+    let address = crypto.getAddrFromPri(privateKey)
+    let newWallet = { address, private: privateKey }
+    this.setState({
+      wallets: this.state.wallets.concat([newWallet]),
+      error: ''
+    })
+  }
+
   WalletList(props) {
     const listItems = props.map((p) =>
       <Wallet key={p.address} address={p.address} private={p.private} />
@@ -60,8 +72,10 @@ class Form extends Component {
         <div id="form" className="third middle">
           <input id="private" className="stack" placeholder="Private Key" ref={(i) => { this.private = i }} />
           <input id="addr" className="stack" placeholder="Address (Optional)" ref={(i) => { this.address = i }} />
-          <button id="gen" className="stack" onClick={this.genWallet} style={centerText}>Generate</button>
+          <button id="convert" className="stack" onClick={this.genWallet} style={centerText}>Convert</button>
           {this.state.error ? this.errorHTML() : null}
+          <p style={centerText}> Or generate a new Private Key! </p>
+          <button id="gen" className="stack" onClick={this.genKey} style={centerText}>Generate!</button>
         </div>
         {this.WalletList(this.state.wallets)}
 
