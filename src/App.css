@@ -15,7 +15,7 @@ flex-direction: column;
 }
 .App {
   display: flex;
-  min-height: 100vh;
+  min-height: 86vh;
   flex-direction: column;
   margin: 0 auto;
   max-width: 960px;
@@ -34,13 +34,16 @@ flex-direction: column;
   flex:1;
 }
 
-#foot {
+#print-foot {
   flex:none;
   min-height: 20%
 }
 
+
 @media print {
+  .ribbon {display:none}
   #splash {display:none}
   #form {display: none}
+  #print-foot {display: none}
   #foot {display: none}
 }

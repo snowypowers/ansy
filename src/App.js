@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Form from './Form.js'
+import Footer from './Footer.js'
 import './App.css'
 
 class App extends Component {
@@ -16,19 +17,22 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <div id="splash" className="App-header">
-          <h1>Ansy</h1>
-          <p> Convert your keys into a paper wallet </p>
-        </div>
-        <div id="content">
-          <Form ref={(i) => this.form = i} />
-        </div>
-        <div id="foot" className="">
-          <div className="third middle">
-            <button className="full" type="button" onClick={this.print}> Print!</button>
+      <div>
+        <div className="App">
+          <div id="splash" className="App-header">
+            <h1>Ansy</h1>
+            <p> Convert your keys into a paper wallet </p>
+          </div>
+          <div id="content">
+            <Form ref={(i) => this.form = i} />
+          </div>
+          <div id="print-foot">
+            <div className="third middle">
+              <button className="full" type="button" onClick={this.print}> Print!</button>
+            </div>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }

@@ -1,0 +1,15 @@
+
+#foot {
+  text-align: center;
+  background-color: white;
+  min-height: 8vh;
+  font-size: 10px;
+}
+
+#foot#intro {
+  width: 30%;
+}
+
+#foot#addr {
+  width:70%;
+}
