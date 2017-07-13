@@ -1,11 +1,13 @@
 .wallet-input {
+  font-family:'Consolas';
   text-align: right;
+  font-size: 10px;
   width: 100px;
   border: 0;
 }
 
 
 .wallet {
-  margin: 0 20px;
+  margin: 0 auto;
 
 }
