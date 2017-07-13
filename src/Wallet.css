@@ -1,14 +1,3 @@
-.qr-block {
-  display: inline-block;
-  border: 3px black;
-  text-align: center;
-}
-
-.qr {
-  width: 180px;
-  height: 180px;
-}
-
 .wallet-input {
   text-align: right;
   width: 100px;

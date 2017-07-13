@@ -1,0 +1,19 @@
+.qr-block {
+  display: inline-block;
+  border: 3px black;
+  text-align: center;
+}
+
+.qr {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+}
+
+.hideQR {
+  display: none;
+}
+
+.hexstr {
+  word-wrap:break-word;
+}
