@@ -44,22 +44,23 @@ const crypto = {
     let key = new Uint8Array(32)
     if (window.crypto) {
       window.crypto.getRandomValues(key)
-      key = key.reduce((prev,curr)=> {
+      key = key.reduce((prev, curr) => {
         let hex = ("0" + curr.toString(16)).slice(-2)
         return prev + hex
       }, "")
     } else {
-      for (let i=0;i<32;i++) {
-        key[i] = Math.floor(Math.random()*256)
+      let enc = ""
+      for (let i = 0; i < 32; i++) {
+        key[i] = Math.floor(Math.random() * 256)
+        enc += key[i].toString(16)
       }
       let d = new hmacDRBG({
         hash: hash.sha256,
-        entropy: key.toString('hex'),
-        nonce: Math.random()
+        entropy: enc,
+        nonce: enc
       })
       key = d.generate(32, 'hex')
     }
-    console.log(key.toString('hex'))
     return key.toString('hex')
   }
 }
