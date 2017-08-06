@@ -10,6 +10,16 @@ import hash from 'hash.js'
 const ec = EC.getCurveByName('secp256r1')
 const ADDR_VERS = '17'
 
+
+Uint8Array.prototype.toHexString = function() {
+    let s = "";
+    for (const i of this) {
+        s += (i >>> 4).toString(16);
+        s += (i & 0xf).toString(16);
+    }
+    return s;
+};
+
 const crypto = {
   getCurvePtFromHex: (privateKey) => {
     let privateKeyBuffer = new Buffer(privateKey, 'hex')
@@ -22,6 +32,10 @@ const crypto = {
   },
   getWifFromHex: (privateHex) => {
     return WIF.encode(128, new Buffer(privateHex, 'hex'), true)
+  },
+  getHexFromWif: (privateWIF) => {
+    let arr = WIF.decode(privateWIF).privateKey
+    return arr.toHexString()
   },
   getAddrFromPri: (privateKey) => {
     // Have no idea why we extend the key but it works...

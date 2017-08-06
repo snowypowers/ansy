@@ -18,21 +18,26 @@ class Form extends Component {
       this.setState({ error: 'Empty Field!' })
       return
     }
-    if (this.private.value.length != 64) {
+    if (this.private.value.length !== 64 || this.private.value.length !== 52) {
       this.setState({ error: 'Wrong Private Key Length!' })
     }
     if (this.state.wallets.find((w) => this.private.value === w.private)) {
       this.setState({ error: 'Duplicate Wallet' })
       return
     }
-    let verifyAddr = crypto.getAddrFromPri(this.private.value)
-    if (this.address.value != '' && this.address.value != verifyAddr) {
+    let privateKey = this.private.value
+    if (this.private.value.length === 52) {
+      //Convert WIF to HEX
+      privateKey = crypto.getHexFromWif(this.private.value)
+    }
+    let verifyAddr = crypto.getAddrFromPri(privateKey)
+    if (this.address.value !== '' && this.address.value !== verifyAddr) {
       this.setState({ error: 'Address Verification Failed' })
       return
     }
     let newWallet = {
       address: verifyAddr,
-      private: this.private.value
+      private: privateKey
     }
     this.setState({
       wallets: this.state.wallets.concat([newWallet]),
