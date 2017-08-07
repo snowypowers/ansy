@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Form from './Form.js'
-import Footer from './Footer.js'
+import Form from './Form'
+import Footer from './Footer'
 import './App.css'
 
 class App extends Component {

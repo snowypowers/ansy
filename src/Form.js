@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Wallet from './Wallet.js'
-import crypto from './crypto.js'
+import Wallet from './Wallet'
+import crypto from './crypto'
 const centerText = { textAlign: 'center' }
 
 class Form extends Component {

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import QRCode from 'qrcode'
 import './QR.css'
 
 const makeQR = (cvs, str) => {
   QRCode.toCanvas(cvs, str, { version: 5 }, (err) => {
-    if (err) console.log(err)
+    if (err) alert(err)
   })
 }
 
@@ -40,6 +41,11 @@ class QR extends Component {
       </div>
     )
   }
+}
+
+QR.propTypes = {
+  name: PropTypes.string.isRequired,
+  str: PropTypes.string.isRequired,
 }
 
 export default QR

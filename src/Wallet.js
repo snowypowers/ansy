@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import QR from './QR.js'
 import crypto from './crypto.js'
 import './Wallet.css'
@@ -6,9 +7,9 @@ import './Wallet.css'
 class Wallet extends Component {
   constructor(props) {
     super(props)
-    let wif = crypto.getWifFromHex(props.private)
-    let publicKey = crypto.getPubFromHex(props.private)
-    let address = crypto.getAddrFromPri(props.private)
+    const wif = crypto.getWifFromHex(props.private)
+    const publicKey = crypto.getPubFromHex(props.private)
+    const address = crypto.getAddrFromPri(props.private)
     this.state = {
       address,
       wif,
@@ -50,6 +51,12 @@ class Wallet extends Component {
       </div>
     )
   }
+}
+
+Wallet.propTypes = {
+  key: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired,
+  private: PropTypes.string.isRequired,
 }
 
 export default Wallet;
