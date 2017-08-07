@@ -1,4 +1,3 @@
-import WIF from 'wif'
 import EC from 'ecurve'
 import BigInteger from 'bigi'
 import { SHA256, RIPEMD160, enc } from 'crypto-js'
@@ -11,31 +10,51 @@ const ec = EC.getCurveByName('secp256r1')
 const ADDR_VERS = '17'
 
 
-Uint8Array.prototype.toHexString = function() {
+const toHexString = function(arrayBuffer) {
     let s = "";
-    for (const i of this) {
+    for (const i of arrayBuffer) {
         s += (i >>> 4).toString(16);
         s += (i & 0xf).toString(16);
     }
     return s;
-};
+}
+
+const toArrayBuffer = function(s) {
+  let result = []
+  for (let i=0;i < s.length;i+=2) {
+    result.push(parseInt(s.substring(i, i+2), 16))
+  }
+  return Uint8Array.from(result)
+}
+
+const WIF = {
+  encode: (s) => {
+    let extended = "80" + s + "01"
+    const shaOut = SHA256(SHA256(enc.Hex.parse(extended))).toString()
+    extended += shaOut.substring(0,8)
+    return bs58.encode(toArrayBuffer(extended))
+  },
+  decode: (s) => {
+    let extended = toHexString(bs58.decode(s))
+    return extended.substring(2, 66)
+  }
+}
 
 const crypto = {
   getCurvePtFromHex: (privateKey) => {
-    let privateKeyBuffer = new Buffer(privateKey, 'hex')
-    let curvePt = ec.G.multiply(BigInteger.fromBuffer(privateKeyBuffer))
+    const privateKeyBuffer = new BigInteger.fromHex(privateKey)
+    const curvePt = ec.G.multiply(privateKeyBuffer)
     return curvePt
   },
   getPubFromHex: (privateKey) => {
-    let curvePt = crypto.getCurvePtFromHex(privateKey)
+    const curvePt = crypto.getCurvePtFromHex(privateKey)
     return curvePt.getEncoded(true).toString('hex')
   },
   getWifFromHex: (privateHex) => {
-    return WIF.encode(128, new Buffer(privateHex, 'hex'), true)
+    return WIF.encode(privateHex)
   },
   getHexFromWif: (privateWIF) => {
-    let arr = WIF.decode(privateWIF).privateKey
-    return arr.toHexString()
+    return WIF.decode(privateWIF)
   },
   getAddrFromPri: (privateKey) => {
     // Have no idea why we extend the key but it works...
@@ -45,13 +64,15 @@ const crypto = {
     // Add ADDR_VERS in front of RIPEMD
     ripHash = ADDR_VERS + ripHash
     // SHA256 2 times
-    let shaOutput = SHA256(SHA256(enc.Hex.parse(ripHash))).toString()
+    const shaOutput = SHA256(SHA256(enc.Hex.parse(ripHash))).toString()
     // Address = RIPEMD + SHA[0:4]
-    let shaChecksum = Buffer.from(shaOutput.substring(0, 8), 'hex')
+    const shaChecksum = toArrayBuffer(shaOutput.substring(0, 8))
     // Construct RIPEMD buffer
-    let ripBuffer = Buffer.from(ripHash, 'hex')
+    const ripBuffer = toArrayBuffer(ripHash)
     // Construct 25 byte Address Buffer
-    let addrBuffer = Buffer.concat([ripBuffer, shaChecksum])
+    let addrBuffer = new Uint8Array(25)
+    addrBuffer.set(ripBuffer,0)
+    addrBuffer.set(shaChecksum,21)
     return bs58.encode(addrBuffer)
   },
   genPriKey: () => {
