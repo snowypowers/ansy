@@ -10,9 +10,7 @@ body {
 flex-direction: column;
 }
 
-#root {
-  height: 100%;
-}
+
 .App {
   display: flex;
   min-height: 86vh;
@@ -23,6 +21,14 @@ flex-direction: column;
 
 .middle {
   margin: 0 auto;
+}
+
+.center-text {
+  text-align: center;
+}
+
+#root {
+  height: 100%;
 }
 
 #splash {

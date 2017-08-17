@@ -46,6 +46,7 @@ class QR extends Component {
 QR.propTypes = {
   name: PropTypes.string.isRequired,
   str: PropTypes.string.isRequired,
+  correctLevel: PropTypes.string
 }
 
 export default QR

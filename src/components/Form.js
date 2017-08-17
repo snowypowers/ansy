@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Wallet from './Wallet'
-import crypto from './crypto'
-const centerText = { textAlign: 'center' }
+import crypto from '../modules/crypto'
 
-class Form extends Component {
+export default class Form extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -18,16 +18,13 @@ class Form extends Component {
       this.setState({ error: 'Empty Field!' })
       return
     }
-    if (this.private.value.length !== 64 || this.private.value.length !== 52) {
+    if (this.private.value.length !== 64 && this.private.value.length !== 52) {
       this.setState({ error: 'Wrong Private Key Length!' })
-    }
-    if (this.state.wallets.find((w) => this.private.value === w.private)) {
-      this.setState({ error: 'Duplicate Wallet' })
       return
     }
+
     let privateKey = this.private.value
     if (this.private.value.length === 52) {
-      //Convert WIF to HEX
       privateKey = crypto.getHexFromWif(this.private.value)
     }
     let verifyAddr = crypto.getAddrFromPri(privateKey)
@@ -39,23 +36,23 @@ class Form extends Component {
       address: verifyAddr,
       private: privateKey
     }
-    this.setState({
-      wallets: this.state.wallets.concat([newWallet]),
-      error: ''
-    })
-
-    this.address.value = ''
-    this.private.value = ''
+    const done = this.props.addWallet(newWallet)
+    if (done) {
+      this.private.value = ''
+      this.address.value = ''
+    } else {
+      this.setState({ error: "Duplicate wallet!" })
+    }
   }
 
   genKey() {
     let privateKey = crypto.genPriKey()
     let address = crypto.getAddrFromPri(privateKey)
     let newWallet = { address, private: privateKey }
-    this.setState({
-      wallets: this.state.wallets.concat([newWallet]),
-      error: ''
-    })
+    const done = this.props.addWallet(newWallet)
+    if (!done) {
+      this.genKey()
+    }
   }
 
   WalletList(props) {
@@ -68,7 +65,7 @@ class Form extends Component {
   }
   errorHTML() {
     return (
-      <p style={centerText} key="error"><span className="label error">{this.state.error}</span></p>
+      <p className="center-text" key="error"><span className="label error">{this.state.error}</span></p>
     )
   }
   render() {
@@ -77,15 +74,18 @@ class Form extends Component {
         <div id="form" className="third middle">
           <input id="private" className="stack" placeholder="Private Key" ref={(i) => { this.private = i }} />
           <input id="addr" className="stack" placeholder="Address (Optional)" ref={(i) => { this.address = i }} />
-          <button id="convert" className="stack" onClick={this.genWallet} style={centerText}>Convert</button>
+          <button id="convert" className="stack center-text" onClick={this.genWallet} >Convert</button>
           {this.state.error ? this.errorHTML() : null}
-          <p style={centerText}> Or generate a new Private Key! </p>
-          <button id="gen" className="stack" onClick={this.genKey} style={centerText}>Generate!</button>
+          <p className="center-text"> Or generate a new Private Key! </p>
+          <button id="gen" className="stack center-text" onClick={this.genKey} >Generate!</button>
         </div>
-        {this.WalletList(this.state.wallets)}
+
 
       </div>
     )
   }
 }
-export default Form;
+
+Form.propTypes = {
+  addWallet: PropTypes.func.isRequired
+}

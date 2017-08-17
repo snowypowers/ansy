@@ -54,7 +54,6 @@ class Wallet extends Component {
 }
 
 Wallet.propTypes = {
-  key: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
   private: PropTypes.string.isRequired,
 }
