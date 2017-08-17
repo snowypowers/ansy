@@ -36,10 +36,6 @@ flex-direction: column;
   flex:none;
 }
 
-#form {
-  flex:1;
-}
-
 #print-foot {
   flex:none;
   min-height: 20%

@@ -4,7 +4,7 @@ import QR from './QR.js'
 import crypto from '../modules/crypto.js'
 import './Wallet.css'
 
-class Wallet extends Component {
+export default class Wallet extends Component {
   constructor(props) {
     super(props)
     const wif = crypto.getWifFromHex(props.private)
@@ -57,5 +57,3 @@ Wallet.propTypes = {
   address: PropTypes.string.isRequired,
   private: PropTypes.string.isRequired,
 }
-
-export default Wallet;

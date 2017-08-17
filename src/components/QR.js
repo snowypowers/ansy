@@ -9,7 +9,7 @@ const makeQR = (cvs, str) => {
   })
 }
 
-class QR extends Component {
+export default class QR extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -48,5 +48,3 @@ QR.propTypes = {
   str: PropTypes.string.isRequired,
   correctLevel: PropTypes.string
 }
-
-export default QR

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Wallet from './Wallet'
 import crypto from '../modules/crypto'
 
 export default class Form extends Component {
@@ -24,12 +23,19 @@ export default class Form extends Component {
     }
 
     let privateKey = this.private.value
-    if (this.private.value.length === 52) {
-      privateKey = crypto.getHexFromWif(this.private.value)
-    }
-    let verifyAddr = crypto.getAddrFromPri(privateKey)
-    if (this.address.value !== '' && this.address.value !== verifyAddr) {
-      this.setState({ error: 'Address Verification Failed' })
+    let verifyAddr
+    try {
+
+      if (this.private.value.length === 52) {
+        privateKey = crypto.getHexFromWif(this.private.value)
+      }
+      let verifyAddr = crypto.getAddrFromPri(privateKey)
+      if (this.address.value !== '' && this.address.value !== verifyAddr) {
+        this.setState({ error: 'Address Verification Failed' })
+        return
+      }
+    } catch (e) {
+      this.setState({ error: "Invalid Private key!" })
       return
     }
     let newWallet = {
@@ -55,29 +61,43 @@ export default class Form extends Component {
     }
   }
 
-  WalletList(props) {
-    const listItems = props.map((p) =>
-      <Wallet key={p.address} address={p.address} private={p.private} />
-    )
-    return (
-      <div className="wallets">{listItems}</div>
-    )
-  }
   errorHTML() {
     return (
       <p className="center-text" key="error"><span className="label error">{this.state.error}</span></p>
     )
   }
   render() {
+    const formContainer = {
+      padding: 0,
+      margin: "0 auto"
+    }
+    const tabContainer = {
+      padding: 20
+    }
     return (
       <div className="flex column center">
-        <div id="form" className="third middle">
-          <input id="private" className="stack" placeholder="Private Key" ref={(i) => { this.private = i }} />
-          <input id="addr" className="stack" placeholder="Address (Optional)" ref={(i) => { this.address = i }} />
-          <button id="convert" className="stack center-text" onClick={this.genWallet} >Convert</button>
+        <div className="two-third middle" style={formContainer}>
+          <div className="tabs two">
+            <input id="tab-1" type="radio" name="formtabs" defaultChecked={true} />
+            <input id="tab-2" type="radio" name="formtabs" />
+            <div className="flex half middle">
+              <label className="pseudo button toggle" htmlFor="tab-1"> Convert </label>
+              <label className="pseudo button toggle" htmlFor="tab-2"> Generate </label>
+            </div>
+            <div className="row">
+              <div style={tabContainer}>
+                <input id="private" className="stack" placeholder="Private Key" ref={(i) => this.private = i} />
+                <input id="addr" className="stack" placeholder="Address (Optional)" ref={(i) => this.address = i} />
+                <button id="convert" className="stack center-text" onClick={this.genWallet} >Convert</button>
+              </div>
+              <div style={tabContainer}>
+                <p className="center-text"> Or generate a new Private Key! </p>
+                <input id="vanity" className="stack" placeholder="Starts with..." ref={(i) => this.vanity = i} />
+                <button id="gen" className="stack center-text" onClick={this.genKey} >Generate!</button>
+              </div>
+            </div>
+          </div>
           {this.state.error ? this.errorHTML() : null}
-          <p className="center-text"> Or generate a new Private Key! </p>
-          <button id="gen" className="stack center-text" onClick={this.genKey} >Generate!</button>
         </div>
 
 
