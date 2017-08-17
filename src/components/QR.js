@@ -4,7 +4,7 @@ import QRCode from 'qrcode'
 import './QR.css'
 
 const makeQR = (cvs, str) => {
-  QRCode.toCanvas(cvs, str, { version: 5 }, (err) => {
+  QRCode.toCanvas(cvs, str, { version: 5, margin: 1 }, (err) => {
     if (err) alert(err)
   })
 }

@@ -12,6 +12,7 @@ class App extends Component {
     }
     this.print = this.print.bind(this)
     this.addWallet = this.addWallet.bind(this)
+    this.removeWallet = this.removeWallet.bind(this)
   }
 
   addWallet(newWallet) {
@@ -24,6 +25,10 @@ class App extends Component {
     return true
   }
 
+  removeWallet(addr) {
+    this.setState({ wallets: this.state.wallets.filter((w) => w.address !== addr) })
+  }
+
   print() {
     if (this.state.wallets.length > 0) {
       window.print()
@@ -34,13 +39,22 @@ class App extends Component {
 
   WalletList(props) {
     const listItems = props.map((p) =>
-      <Wallet key={p.address} address={p.address} private={p.private} />
+      <Wallet key={p.address} address={p.address} private={p.private} removeCallback={this.removeWallet} />
     )
+    const pages = []
+    while (listItems.length) {
+      pages.push(this.WalletPage(listItems.splice(0,4)))
+    }
     return (
-      <div className="wallets">{listItems}</div>
+      <div className="wallets">{pages}</div>
     )
   }
 
+  WalletPage(wallets) {
+    return (
+      <div className="wallet-page" key={wallets[0].key}>{wallets}</div>
+    )
+  }
   render() {
     return (
       <div>

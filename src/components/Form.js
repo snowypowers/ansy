@@ -7,7 +7,7 @@ export default class Form extends Component {
     super(props)
     this.state = {
       wallets: [],
-      error: ''
+      error: '',
     }
     this.genWallet = this.genWallet.bind(this)
     this.genKey = this.genKey.bind(this)
@@ -29,7 +29,7 @@ export default class Form extends Component {
       if (this.private.value.length === 52) {
         privateKey = crypto.getHexFromWif(this.private.value)
       }
-      let verifyAddr = crypto.getAddrFromPri(privateKey)
+      verifyAddr = crypto.getAddrFromPri(privateKey)
       if (this.address.value !== '' && this.address.value !== verifyAddr) {
         this.setState({ error: 'Address Verification Failed' })
         return
@@ -52,8 +52,8 @@ export default class Form extends Component {
   }
 
   genKey() {
-    let privateKey = crypto.genPriKey()
-    let address = crypto.getAddrFromPri(privateKey)
+    const privateKey = crypto.genPriKey()
+    const address = crypto.getAddrFromPri(privateKey)
     let newWallet = { address, private: privateKey }
     const done = this.props.addWallet(newWallet)
     if (!done) {
@@ -75,7 +75,7 @@ export default class Form extends Component {
       padding: 20
     }
     return (
-      <div className="flex column center">
+      <div className="no-print flex column center">
         <div className="two-third middle" style={formContainer}>
           <div className="tabs two">
             <input id="tab-1" type="radio" name="formtabs" defaultChecked={true} />
@@ -92,7 +92,6 @@ export default class Form extends Component {
               </div>
               <div style={tabContainer}>
                 <p className="center-text"> Or generate a new Private Key! </p>
-                <input id="vanity" className="stack" placeholder="Starts with..." ref={(i) => this.vanity = i} />
                 <button id="gen" className="stack center-text" onClick={this.genKey} >Generate!</button>
               </div>
             </div>
