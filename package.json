@@ -1,6 +1,6 @@
 {
   "name": "ansy",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "main": "src/index.js",
   "author": "Yak Jun Xiang <snowypowers@gmail.com>",
   "license": "MIT",
