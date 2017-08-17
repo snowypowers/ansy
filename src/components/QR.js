@@ -4,12 +4,12 @@ import QRCode from 'qrcode'
 import './QR.css'
 
 const makeQR = (cvs, str) => {
-  QRCode.toCanvas(cvs, str, { version: 5 }, (err) => {
+  QRCode.toCanvas(cvs, str, { version: 5, margin: 1 }, (err) => {
     if (err) alert(err)
   })
 }
 
-class QR extends Component {
+export default class QR extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -31,8 +31,9 @@ class QR extends Component {
   }
 
   render() {
+    const noPad = { padding: 0 }
     return (
-      <div className="qr-block">
+      <div className="qr-block" style={noPad}>
         <div className="qr" onDoubleClick={this.toggleQR}>
           <canvas className={this.state.showQR ? 'showQR' : 'hideQR'} ref={(i) => this.cvs = i} ></canvas>
           <span className={(this.state.showQR ? 'hideQR' : 'showQR') + ' hexstr'} > {this.props.str}</span>
@@ -46,6 +47,5 @@ class QR extends Component {
 QR.propTypes = {
   name: PropTypes.string.isRequired,
   str: PropTypes.string.isRequired,
+  correctLevel: PropTypes.string
 }
-
-export default QR

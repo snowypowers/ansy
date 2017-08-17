@@ -10,9 +10,7 @@ body {
 flex-direction: column;
 }
 
-#root {
-  height: 100%;
-}
+
 .App {
   display: flex;
   min-height: 86vh;
@@ -25,13 +23,17 @@ flex-direction: column;
   margin: 0 auto;
 }
 
+.center-text {
+  text-align: center;
+}
+
+#root {
+  height: 100%;
+}
+
 #splash {
   text-align: center;
   flex:none;
-}
-
-#form {
-  flex:1;
 }
 
 #print-foot {
@@ -41,9 +43,14 @@ flex-direction: column;
 
 
 @media print {
+  .wallet-page {
+    width: 210mm;
+    page-break-after: always;
+  }
   .ribbon {display:none}
   #splash {display:none}
   #form {display: none}
   #print-foot {display: none}
   #foot {display: none}
+  .no-print{display: none}
 }
