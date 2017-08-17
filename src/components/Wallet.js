@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import QR from './QR.js'
-import crypto from './crypto.js'
+import crypto from '../modules/crypto.js'
 import './Wallet.css'
 
 class Wallet extends Component {
