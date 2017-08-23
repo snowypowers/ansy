@@ -62,7 +62,7 @@ export default class Wallet extends Component {
             </div>
             <footer style={noSpace}>
               <div className="flex grow">
-                <textarea className="wallet-input" rows={2} defaultValue={this.state.wif} style={leftAlign,noResize} />
+                <textarea className="wallet-input" rows={2} defaultValue={this.state.wif} style={noResize} />
               </div>
             </footer>
           </div>

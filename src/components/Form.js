@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import crypto from '../modules/crypto'
+import NEP2 from '../modules/nep2'
 
 export default class Form extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ export default class Form extends Component {
     this.state = {
       wallets: [],
       error: '',
+      progress: 0
     }
     this.genWallet = this.genWallet.bind(this)
     this.genKey = this.genKey.bind(this)
@@ -42,6 +44,9 @@ export default class Form extends Component {
       address: verifyAddr,
       private: privateKey
     }
+    if (this.conPassword.value.length > 0) {
+      newWallet.nep2 = NEP2.encrypt(newWallet.private, this.conPassword.value)
+    }
     const done = this.props.addWallet(newWallet)
     if (done) {
       this.private.value = ''
@@ -55,6 +60,9 @@ export default class Form extends Component {
     const privateKey = crypto.genPriKey()
     const address = crypto.getAddrFromPri(privateKey)
     let newWallet = { address, private: privateKey }
+    if (this.genPassword.value.length > 0) {
+      newWallet.nep2 = NEP2.encrypt(privateKey, this.password.value)
+    }
     const done = this.props.addWallet(newWallet)
     if (!done) {
       this.genKey()
@@ -66,6 +74,7 @@ export default class Form extends Component {
       <p className="center-text" key="error"><span className="label error">{this.state.error}</span></p>
     )
   }
+
   render() {
     const formContainer = {
       padding: 0,
@@ -86,13 +95,16 @@ export default class Form extends Component {
             </div>
             <div className="row">
               <div style={tabContainer}>
-                <input id="private" className="stack" placeholder="Private Key" ref={(i) => this.private = i} />
-                <input id="addr" className="stack" placeholder="Address (Optional)" ref={(i) => this.address = i} />
+                <input type="text" id="private" className="stack" placeholder="Private Key" ref={(i) => this.private = i} />
+                <input type="text" id="addr" className="stack" placeholder="Address (Optional)" ref={(i) => this.address = i} />
+                <input type="password" id="con-pwd" className="stack" placeholder="Password (Optional)" ref={(i) => this.conPassword = i} />
                 <button id="convert" className="stack center-text" onClick={this.genWallet} >Convert</button>
               </div>
               <div style={tabContainer}>
                 <p className="center-text"> Or generate a new Private Key! </p>
+                <input type="password" id="gen-pwd" className="stack" placeholder="Password (Optional)" ref={(i) => this.genPassword = i} />
                 <button id="gen" className="stack center-text" onClick={this.genKey} >Generate!</button>
+                <p> Warning: Encryption will take a while</p>
               </div>
             </div>
           </div>
