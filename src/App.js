@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Form from './components/Form'
 import Footer from './components/Footer'
 import Wallet from './components/Wallet'
+import NEP2Wallet from './components/NEP2Wallet'
 import './App.css'
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
     this.print = this.print.bind(this)
     this.addWallet = this.addWallet.bind(this)
     this.removeWallet = this.removeWallet.bind(this)
+    this.toggleWallet = this.toggleWallet.bind(this)
   }
 
   addWallet(newWallet) {
@@ -29,6 +31,18 @@ class App extends Component {
     this.setState({ wallets: this.state.wallets.filter((w) => w.address !== addr) })
   }
 
+  toggleWallet(addr, newType) {
+    this.setState({
+      wallets: this.state.wallets.filter((w) => {
+        if (w.address === addr) {
+          return Object.assign(w, {type: newType})
+        } else {
+          return w
+        }
+      })
+    })
+  }
+
   print() {
     if (this.state.wallets.length > 0) {
       window.print()
@@ -38,12 +52,20 @@ class App extends Component {
   }
 
   WalletList(props) {
-    const listItems = props.map((p) =>
-      <Wallet key={p.address} address={p.address} private={p.private} removeCallback={this.removeWallet} />
-    )
+    const listItems = props.map((p) => {
+      if (p.type === "NEP2") {
+        return (
+          <NEP2Wallet key={p.address} data={p} removeCallback={this.removeWallet} toggleCallback={this.toggleWallet}/>
+        )
+      } else {
+        return (
+          <Wallet key={p.address} data={p} removeCallback={this.removeWallet} toggleCallback={this.toggleWallet}/>
+        )
+      }
+    })
     const pages = []
     while (listItems.length) {
-      pages.push(this.WalletPage(listItems.splice(0,4)))
+      pages.push(this.WalletPage(listItems.splice(0, 4)))
     }
     return (
       <div className="wallets">{pages}</div>

@@ -1,33 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import QR from './QR.js'
-import crypto from '../modules/crypto.js'
-import './Wallet.css'
+import Wallet from './Wallet'
 
-export default class Wallet extends Component {
+export default class NEP2Wallet extends Wallet {
   constructor(props) {
     super(props)
-    const wif = crypto.getWifFromHex(props.data.private)
-    const publicKey = crypto.getPubFromHex(props.data.private)
-    const address = crypto.getAddrFromPri(props.data.private)
-    this.state = {
-      address,
-      wif,
-      private: props.data.private,
-      public: publicKey
-    }
-    this.remove = this.remove.bind(this)
-    this.toggle = this.toggle.bind(this)
+    this.state.nep2 = this.props.data.nep2
   }
-
-  remove() {
-    this.props.removeCallback(this.state.address)
-  }
-
   toggle() {
-    this.props.toggleCallback(this.state.address, 'NEP2')
+    this.props.toggleCallback(this.state.address, 'Normal')
   }
-
   render() {
     let leftAlign = { textAlign: 'left' }
     const uiStyle = { flexGrow: 0, flexBasis: 0, width: 0 }
@@ -61,28 +44,25 @@ export default class Wallet extends Component {
             </div>
           </header>
           <div>
-            <div className="flex two">
-              <QR name="HEX" str={this.state.private} />
-              <QR name="WIF" str={this.state.wif} />
+            <div className="flex one">
+              <QR name="NEP2" str={this.state.nep2} />
             </div>
             <footer style={noSpace}>
               <div className="flex grow">
-                <textarea className="wallet-input" rows={2} defaultValue={this.state.wif} style={noResize} />
+                <textarea className="wallet-input" rows={2} defaultValue={this.state.nep2} style={noResize} />
               </div>
             </footer>
           </div>
         </article>
         <div className="wallet-ui no-print" style={uiStyle}>
           <button onClick={this.remove}>X</button>
-          {this.props.data.nep2 ? <button onClick={this.toggle}>{'>'}</button> : null}
+          {this.props.data.private ? <button onClick={this.toggle}>{'<'}</button> : null}
         </div>
       </div>
     )
   }
 }
-
-Wallet.propTypes = {
+NEP2Wallet.propTypes = {
   data: PropTypes.object.isRequired,
-  removeCallback: PropTypes.func,
-  toggleCallback: PropTypes.func,
+  removeCallback: PropTypes.func
 }

@@ -10,7 +10,7 @@ const ec = EC.getCurveByName('secp256r1')
 const ADDR_VERS = '17'
 
 
-const toHexString = function(arrayBuffer) {
+export const toHexString = function(arrayBuffer) {
     let s = "";
     for (const i of arrayBuffer) {
         s += (i >>> 4).toString(16);
@@ -19,7 +19,7 @@ const toHexString = function(arrayBuffer) {
     return s;
 }
 
-const toArrayBuffer = function(s) {
+export const toArrayBuffer = function(s) {
   let result = []
   for (let i=0;i < s.length;i+=2) {
     result.push(parseInt(s.substring(i, i+2), 16))
@@ -27,7 +27,7 @@ const toArrayBuffer = function(s) {
   return Uint8Array.from(result)
 }
 
-const WIF = {
+export const WIF = {
   encode: (s) => {
     let extended = "80" + s + "01"
     const shaOut = SHA256(SHA256(enc.Hex.parse(extended))).toString()
@@ -40,7 +40,7 @@ const WIF = {
   }
 }
 
-const crypto = {
+export const crypto = {
   getCurvePtFromHex: (privateKey) => {
     const privateKeyBuffer = new BigInteger.fromHex(privateKey)
     const curvePt = ec.G.multiply(privateKeyBuffer)
