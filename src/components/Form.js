@@ -19,15 +19,32 @@ export default class Form extends Component {
       this.setState({ error: 'Empty Field!' })
       return
     }
-    if (this.private.value.length !== 64 && this.private.value.length !== 52) {
+    if (this.private.value.length !== 64 && this.private.value.length !== 52 && this.private.value.length !== 58) {
       this.setState({ error: 'Wrong Private Key Length!' })
       return
     }
 
     let privateKey = this.private.value
     let verifyAddr
-    try {
+    let newWallet = {
+      address: verifyAddr,
+      private: privateKey,
+      nep2: ''
+    }
+    // Decrypt NEP2
+    if (this.private.value.length === 58 && this.conPassword.value.length > 0) {
+      try {
+        newWallet.nep2 = this.private.value
+        privateKey = NEP2.decrypt(this.private.value, this.conPassword.value)
+        this.conPassword.value = ''
+      } catch(e) {
+        this.setState({error: 'Invalid Password'})
+        return
+      }
+    }
 
+    // Test Private key and get Address
+    try {
       if (this.private.value.length === 52) {
         privateKey = crypto.getHexFromWif(this.private.value)
       }
@@ -40,10 +57,8 @@ export default class Form extends Component {
       this.setState({ error: "Invalid Private key!" })
       return
     }
-    let newWallet = {
-      address: verifyAddr,
-      private: privateKey
-    }
+    newWallet.address = verifyAddr
+    newWallet.private = privateKey
     if (this.conPassword.value.length > 0) {
       newWallet.nep2 = NEP2.encrypt(newWallet.private, this.conPassword.value)
     }
@@ -51,6 +66,7 @@ export default class Form extends Component {
     if (done) {
       this.private.value = ''
       this.address.value = ''
+      this.conPassword.value = ''
     } else {
       this.setState({ error: "Duplicate wallet!" })
     }
@@ -59,9 +75,10 @@ export default class Form extends Component {
   genKey() {
     const privateKey = crypto.genPriKey()
     const address = crypto.getAddrFromPri(privateKey)
-    let newWallet = { address, private: privateKey }
+    let newWallet = { address, private: privateKey, type:'Normal' }
     if (this.genPassword.value.length > 0) {
-      newWallet.nep2 = NEP2.encrypt(privateKey, this.password.value)
+      newWallet.nep2 = NEP2.encrypt(privateKey, this.genPassword.value)
+      newWallet.type='NEP2'
     }
     const done = this.props.addWallet(newWallet)
     if (!done) {

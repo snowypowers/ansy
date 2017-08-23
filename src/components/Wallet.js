@@ -7,20 +7,25 @@ import './Wallet.css'
 export default class Wallet extends Component {
   constructor(props) {
     super(props)
-    const wif = crypto.getWifFromHex(props.private)
-    const publicKey = crypto.getPubFromHex(props.private)
-    const address = crypto.getAddrFromPri(props.private)
+    const wif = crypto.getWifFromHex(props.data.private)
+    const publicKey = crypto.getPubFromHex(props.data.private)
+    const address = crypto.getAddrFromPri(props.data.private)
     this.state = {
       address,
       wif,
-      private: props.private,
+      private: props.data.private,
       public: publicKey
     }
     this.remove = this.remove.bind(this)
+    this.toggle = this.toggle.bind(this)
   }
 
   remove() {
     this.props.removeCallback(this.state.address)
+  }
+
+  toggle() {
+    this.props.toggleCallback(this.state.address, 'NEP2')
   }
 
   render() {
@@ -69,6 +74,7 @@ export default class Wallet extends Component {
         </article>
         <div className="wallet-ui no-print" style={uiStyle}>
           <button onClick={this.remove}>X</button>
+          {this.props.data.nep2 ? <button onClick={this.toggle}>{'>'}</button> : null}
         </div>
       </div>
     )
@@ -76,7 +82,7 @@ export default class Wallet extends Component {
 }
 
 Wallet.propTypes = {
-  address: PropTypes.string.isRequired,
-  private: PropTypes.string.isRequired,
-  removeCallback: PropTypes.func
+  data: PropTypes.object.isRequired,
+  removeCallback: PropTypes.func,
+  toggleCallback: PropTypes.func,
 }

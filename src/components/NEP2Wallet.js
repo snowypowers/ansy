@@ -6,7 +6,10 @@ import Wallet from './Wallet'
 export default class NEP2Wallet extends Wallet {
   constructor(props) {
     super(props)
-    this.state.nep2 = this.props.nep2
+    this.state.nep2 = this.props.data.nep2
+  }
+  toggle() {
+    this.props.toggleCallback(this.state.address, 'Normal')
   }
   render() {
     let leftAlign = { textAlign: 'left' }
@@ -53,13 +56,13 @@ export default class NEP2Wallet extends Wallet {
         </article>
         <div className="wallet-ui no-print" style={uiStyle}>
           <button onClick={this.remove}>X</button>
+          {this.props.data.private ? <button onClick={this.toggle}>{'<'}</button> : null}
         </div>
       </div>
     )
   }
 }
 NEP2Wallet.propTypes = {
-  address: PropTypes.string.isRequired,
-  nep2: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
   removeCallback: PropTypes.func
 }

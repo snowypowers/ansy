@@ -14,6 +14,7 @@ class App extends Component {
     this.print = this.print.bind(this)
     this.addWallet = this.addWallet.bind(this)
     this.removeWallet = this.removeWallet.bind(this)
+    this.toggleWallet = this.toggleWallet.bind(this)
   }
 
   addWallet(newWallet) {
@@ -30,6 +31,18 @@ class App extends Component {
     this.setState({ wallets: this.state.wallets.filter((w) => w.address !== addr) })
   }
 
+  toggleWallet(addr, newType) {
+    this.setState({
+      wallets: this.state.wallets.filter((w) => {
+        if (w.address === addr) {
+          return Object.assign(w, {type: newType})
+        } else {
+          return w
+        }
+      })
+    })
+  }
+
   print() {
     if (this.state.wallets.length > 0) {
       window.print()
@@ -40,13 +53,13 @@ class App extends Component {
 
   WalletList(props) {
     const listItems = props.map((p) => {
-      if (p.nep2) {
+      if (p.type === "NEP2") {
         return (
-          <NEP2Wallet key={p.address} address={p.address} private={p.private} nep2={p.nep2} removeCallback={this.removeWallet} />
+          <NEP2Wallet key={p.address} data={p} removeCallback={this.removeWallet} toggleCallback={this.toggleWallet}/>
         )
       } else {
         return (
-          <Wallet key={p.address} address={p.address} private={p.private} removeCallback={this.removeWallet} />
+          <Wallet key={p.address} data={p} removeCallback={this.removeWallet} toggleCallback={this.toggleWallet}/>
         )
       }
     })
