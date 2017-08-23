@@ -26,7 +26,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts": "^1.0.10",
-    "scrypt": "^6.0.3"
+    "scryptsy": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "^3.19.0",

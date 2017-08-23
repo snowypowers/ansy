@@ -22,13 +22,13 @@ it("Test", () => {
   const max = bs58check.encode(toArrayBuffer("0142e0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"))
   expect(max).toBe("6PYXg5tGnLYdXDRZiAqXbeYxwDoTBNthbi3d61mqBxPpwZQezJTvQHsCnk")
 })
-it("Encrypt", () => {
+it.skip("Encrypt", () => {
   keys.map((item) => {
     let encrypted = nep2.encrypt(item.hex, item.passphrase)
     expect(encrypted).toBe(item.encrypted)
   })
 })
-it("Decrypt", () => {
+it.skip("Decrypt", () => {
   keys.map((item) => {
     let decrypted = nep2.decrypt(item.encrypted, item.passphrase)
     expect(decrypted.toUpperCase()).toBe(item.hex.toUpperCase())
