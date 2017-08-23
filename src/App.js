@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Form from './components/Form'
 import Footer from './components/Footer'
 import Wallet from './components/Wallet'
+import NEP2Wallet from './components/NEP2Wallet'
 import './App.css'
 
 class App extends Component {
@@ -38,12 +39,20 @@ class App extends Component {
   }
 
   WalletList(props) {
-    const listItems = props.map((p) =>
-      <Wallet key={p.address} address={p.address} private={p.private} removeCallback={this.removeWallet} />
-    )
+    const listItems = props.map((p) => {
+      if (p.nep2) {
+        return (
+          <NEP2Wallet key={p.address} address={p.address} private={p.private} nep2={p.nep2} removeCallback={this.removeWallet} />
+        )
+      } else {
+        return (
+          <Wallet key={p.address} address={p.address} private={p.private} removeCallback={this.removeWallet} />
+        )
+      }
+    })
     const pages = []
     while (listItems.length) {
-      pages.push(this.WalletPage(listItems.splice(0,4)))
+      pages.push(this.WalletPage(listItems.splice(0, 4)))
     }
     return (
       <div className="wallets">{pages}</div>
