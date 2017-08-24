@@ -1,19 +1,28 @@
-# Ansy
+<h1 align="center">Ansy</h1>
 
-Minimal Antshare paper wallet generator
+<p align="center">
+  Minimal <b>NEO</b> paper wallet generator
+</p>
 
-# Why?
+<p align="center">
+  <a href="https://github.com/snowypowers/ansy/releases">
+    <img src="https://img.shields.io/github/tag/snowypowers/ansy.svg?style=flat">
+  </a>
+</p>
 
-- Antshares uses an elliptic curve different from Bitcoin.
+## What?
+
+- Simple NEO Paper wallet generator
+- NEP2 Support for encryption (Similar to BIP38)
 - Simple and easy to use.
 
-# What you need?
+## What you need?
 
-Your Antshares Private Key. Your address can be used for verifying that your private key works.
+Your NEO Private Key. Your address can be used for verifying that your private key works.
 
 You can generate a new address if you do not have one.
 
-# How
+## Quick Start (DEV)
 
 As a developer,
 
@@ -30,11 +39,27 @@ Alternatively,
 $ yarn install
 ```
 
-# License
+Then,
+
+```
+npm start
+```
+
+This will open Ansy (running locally) in your browser
+
+## Quick Start (USER)
+
+As a normal user,
+
+Download the package either from [Release](https://github.com/snowypowers/ansy/releases) or the ZIP button.
+
+Extract the zip and open `docs/index.html` using your browser.
+
+## License
 
 MIT
 
-# Support
+## Support
 
 NEO: AbUKT3KXcAMpLD1MsAMRNhgN3hqmzEqqVP
 
