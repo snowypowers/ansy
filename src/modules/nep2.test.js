@@ -16,19 +16,19 @@ const keys = [
   }
 ]
 
-it("Test", () => {
+it.skip("Test", () => {
   const min = bs58check.encode(toArrayBuffer("0142e0000000000000000000000000000000000000000000000000000000000000000000000000"))
   expect(min).toBe("6PYJxKpVnkXUsnZAfD2B5ZsZafJYNp4ezQQeCjs39494qUUXLnXijLx6LG")
   const max = bs58check.encode(toArrayBuffer("0142e0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"))
   expect(max).toBe("6PYXg5tGnLYdXDRZiAqXbeYxwDoTBNthbi3d61mqBxPpwZQezJTvQHsCnk")
 })
-it.skip("Encrypt", () => {
+it("Encrypt", () => {
   keys.map((item) => {
     let encrypted = nep2.encrypt(item.hex, item.passphrase)
     expect(encrypted).toBe(item.encrypted)
   })
 })
-it.skip("Decrypt", () => {
+it("Decrypt", () => {
   keys.map((item) => {
     let decrypted = nep2.decrypt(item.encrypted, item.passphrase)
     expect(decrypted.toUpperCase()).toBe(item.hex.toUpperCase())

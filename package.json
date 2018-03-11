@@ -23,14 +23,14 @@
     "picnic": "^6.4.0",
     "prop-types": "^15.5.10",
     "qrcode": "^0.8.2",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-scripts": "^1.0.10",
     "scryptsy": "^2.0.0"
   },
   "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-plugin-jest": "^20.0.3",
-    "eslint-plugin-react": "^7.1.0"
+    "eslint": "^4.18.2",
+    "eslint-plugin-jest": "^21.14.0",
+    "eslint-plugin-react": "^7.7.0"
   }
 }

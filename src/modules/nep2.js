@@ -1,7 +1,7 @@
 import { SHA256, AES, enc } from 'crypto-js'
 import C from 'crypto-js'
 import scrypt from 'scryptsy'
-import { crypto, toArrayBuffer, toHexString } from "./crypto"
+import { crypto, toHexString } from "./crypto"
 import bs58check from 'bs58check'
 
 const hexXor = (str1, str2) => {
@@ -24,9 +24,8 @@ const nep2 = {
     const address = crypto.getAddrFromPri(privateKey)
     // SHA Salt (use the first 4 bytes)
     const addressHash = SHA256(SHA256(enc.Latin1.parse(address))).toString().slice(0, 8)
-    //console.log(addressHash)
     // Perform Unicode Normalization
-    // TODO
+    keyphrase = keyphrase.normalize()
     // Scrypt
     const derived = scrypt(Buffer.from(keyphrase, 'utf8'), Buffer.from(addressHash, 'hex'), 16384, 8, 8, 64, progressCallback).toString('hex')
     const derived1 = derived.slice(0, 64)
