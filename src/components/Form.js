@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import crypto from '../modules/crypto'
-import NEP2 from '../modules/nep2'
+import { wallet } from '@cityofzion/neon-js'
 
 export default class Form extends Component {
   constructor(props) {
@@ -14,71 +13,56 @@ export default class Form extends Component {
     this.genWallet = this.genWallet.bind(this)
     this.genKey = this.genKey.bind(this)
   }
-  genWallet() {
+  genWallet () {
     if (this.private.value === '') {
       this.setState({ error: 'Empty Field!' })
       return
     }
-    if (this.private.value.length !== 64 && this.private.value.length !== 52 && this.private.value.length !== 58) {
+    if (!wallet.isNEP2(this.private.value) && !wallet.isWIF(this.private.value) && !wallet.isPrivateKey(this.private.value)) {
       this.setState({ error: 'Wrong Private Key Length!' })
       return
     }
 
-    let privateKey = this.private.value
-    let verifyAddr
-    let newWallet = {
-      address: verifyAddr,
-      private: privateKey,
-      nep2: ''
-    }
-    // Decrypt NEP2
-    if (this.private.value.length === 58 && this.conPassword.value.length > 0) {
-      try {
-        newWallet.nep2 = this.private.value
-        privateKey = NEP2.decrypt(this.private.value, this.conPassword.value)
-        this.conPassword.value = ''
-      } catch(e) {
-        this.setState({error: 'Invalid Password'})
-        return
-      }
-    }
-
-    // Test Private key and get Address
+    let newWallet = {}
     try {
-      if (this.private.value.length === 52) {
-        privateKey = crypto.getHexFromWif(this.private.value)
+      const acct = new wallet.Account(this.private.value)
+      if (wallet.isNEP2(this.private.value)) {
+        if (this.conPassword.value.length > 0) {
+          newWallet.nep2 = acct.encrypted
+          acct.decrypt(this.conPassword.value)
+        } else {
+          this.setState({error: "Encrypted key provided without password!"})
+        }
       }
-      verifyAddr = crypto.getAddrFromPri(privateKey)
-      if (this.address.value !== '' && this.address.value !== verifyAddr) {
-        this.setState({ error: 'Address Verification Failed' })
-        return
-      }
+      newWallet.private = acct.privateKey
+      newWallet.public = acct.publicKey
+      newWallet.address = acct.address
     } catch (e) {
       this.setState({ error: "Invalid Private key!" })
       return
     }
-    newWallet.address = verifyAddr
-    newWallet.private = privateKey
-    if (this.conPassword.value.length > 0) {
-      newWallet.nep2 = NEP2.encrypt(newWallet.private, this.conPassword.value)
-    }
+
     const done = this.props.addWallet(newWallet)
     if (done) {
       this.private.value = ''
       this.address.value = ''
       this.conPassword.value = ''
+      this.setState({ error: '' })
     } else {
       this.setState({ error: "Duplicate wallet!" })
     }
   }
 
-  genKey() {
-    const privateKey = crypto.genPriKey()
-    const address = crypto.getAddrFromPri(privateKey)
-    let newWallet = { address, private: privateKey, type:'Normal' }
+  genKey () {
+    const acct = new wallet.Account()
+    let newWallet = {
+      address: acct.address,
+      private: acct.privateKey,
+       type: 'Normal'
+      }
     if (this.genPassword.value.length > 0) {
-      newWallet.nep2 = NEP2.encrypt(privateKey, this.genPassword.value)
-      newWallet.type='NEP2'
+      newWallet.nep2 = wallet.encrypt(newWallet.private, this.genPassword.value)
+      newWallet.type = 'NEP2'
     }
     const done = this.props.addWallet(newWallet)
     if (!done) {
@@ -86,13 +70,13 @@ export default class Form extends Component {
     }
   }
 
-  errorHTML() {
+  errorHTML () {
     return (
       <p className="center-text" key="error"><span className="label error">{this.state.error}</span></p>
     )
   }
 
-  render() {
+  render () {
     const formContainer = {
       padding: 0,
       margin: "0 auto"

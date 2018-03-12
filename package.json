@@ -1,6 +1,6 @@
 {
   "name": "ansy",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "src/index.js",
   "author": "Yak Jun Xiang <snowypowers@gmail.com>",
   "license": "MIT",
@@ -11,26 +11,19 @@
     "eject": "react-scripts eject",
     "lint": "./node_modules/.bin/eslint ./src/*.js"
   },
-  "homepage": ".",
+  "homepage": "https://snowypowers.github.io/ansy/",
   "dependencies": {
-    "bigi": "^1.4.2",
-    "bs58": "^4.0.1",
-    "bs58check": "^2.0.2",
-    "crypto-js": "^3.1.9-1",
-    "ecurve": "^1.0.5",
-    "hash.js": "^1.1.3",
-    "hmac-drbg": "^1.0.1",
+    "@cityofzion/neon-js": "^3.4.0",
     "picnic": "^6.4.0",
     "prop-types": "^15.5.10",
     "qrcode": "^0.8.2",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-scripts": "^1.0.10",
-    "scryptsy": "^2.0.0"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "^1.0.10"
   },
   "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-plugin-jest": "^20.0.3",
-    "eslint-plugin-react": "^7.1.0"
+    "eslint": "^4.18.2",
+    "eslint-plugin-jest": "^21.14.0",
+    "eslint-plugin-react": "^7.7.0"
   }
 }

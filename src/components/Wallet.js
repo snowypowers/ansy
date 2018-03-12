@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import QR from './QR.js'
-import crypto from '../modules/crypto.js'
+import { wallet } from '@cityofzion/neon-js'
 import './Wallet.css'
 
 export default class Wallet extends Component {
   constructor(props) {
     super(props)
-    const wif = crypto.getWifFromHex(props.data.private)
-    const publicKey = crypto.getPubFromHex(props.data.private)
-    const address = crypto.getAddrFromPri(props.data.private)
+    const acct = new wallet.Account(props.data.private)
+    const wif = acct.WIF
+    const publicKey = acct.publicKey
+    const address = acct.address
     this.state = {
       address,
       wif,
@@ -20,15 +21,15 @@ export default class Wallet extends Component {
     this.toggle = this.toggle.bind(this)
   }
 
-  remove() {
+  remove () {
     this.props.removeCallback(this.state.address)
   }
 
-  toggle() {
+  toggle () {
     this.props.toggleCallback(this.state.address, 'NEP2')
   }
 
-  render() {
+  render () {
     let leftAlign = { textAlign: 'left' }
     const uiStyle = { flexGrow: 0, flexBasis: 0, width: 0 }
     const cardStyle = { flexGrow: 1, margin: 0 }
