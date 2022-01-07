@@ -1,18 +1,18 @@
 <script lang="ts">
-  import { wallet } from "@cityofzion/neon-core";
-  import { onMount } from "svelte";
+  import type { wallet } from '@cityofzion/neon-core';
+  import { onMount } from 'svelte';
 
-  import Card from "./Card.svelte";
-  import Qr from "./Qr.svelte";
+  import Card from './Card.svelte';
+  import Qr from './Qr.svelte';
 
   let account: wallet.Account;
   let hasEncrypted = false;
 
   onMount(() => {
     try {
-      account.encrypted;
+      account.encrypted; // Will throw if there is no encrypted.
       hasEncrypted = true;
-    } catch {
+    } catch (e) {
       hasEncrypted = false;
     }
   });

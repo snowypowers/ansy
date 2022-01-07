@@ -6,15 +6,17 @@
 
 <p align="center">
   <a href="https://github.com/snowypowers/ansy/releases">
+
     <img src="https://img.shields.io/github/tag/snowypowers/ansy.svg?style=flat">
+
   </a>
 </p>
 
 ## What?
 
-- Simple NEO Paper wallet generator
-- NEP2 Support for encryption (Similar to BIP38)
-- Simple and easy to use.
+* Simple NEO Paper wallet generator
+* NEP2 Support for encryption (Similar to BIP38)
+* Simple and easy to use.
 
 ## What you need?
 
@@ -24,22 +26,23 @@ You can generate a new address if you do not have one.
 
 ## Quick Start (DEV)
 
-As a developer,
+As a developer, 
 
-This is a javascript project built with `npm`.
+This is a javascript project built with `npm` .
 
 Run
 
 ```
 $ npm install
 ```
-Alternatively,
+
+Alternatively, 
 
 ```
 $ yarn install
 ```
 
-Then,
+Then, 
 
 ```
 npm start
@@ -49,11 +52,11 @@ This will open Ansy (running locally) in your browser
 
 ## Quick Start (USER)
 
-As a normal user,
+As a normal user, 
 
 Download the package either from [Release](https://github.com/snowypowers/ansy/releases) or the ZIP button.
 
-Extract the zip and open `docs/index.html` using your browser.
+Extract the zip and open `public/index.html` using your browser.
 
 ## License
 
@@ -61,6 +64,6 @@ MIT
 
 ## Support
 
-NEO: AbUKT3KXcAMpLD1MsAMRNhgN3hqmzEqqVP
+NEO: NYBWj9yJHGQ8tP69HuUrSBZgDxJXwdAjDs
 
 ETH: 0x2E15cd6Ca9f8dcdCd08Ad62d901b6E6a815a36fd

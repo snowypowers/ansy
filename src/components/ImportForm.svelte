@@ -1,42 +1,53 @@
 <script lang="ts">
-  import { accounts } from "./stores";
-  import { wallet } from "@cityofzion/neon-core";
+  import { accounts } from './stores';
+  import { wallet } from '@cityofzion/neon-core';
+  import SimpleButton from './SimpleButton.svelte';
+  import SimpleInput from './SimpleInput.svelte';
 
-  let password = "";
-  let privateKey = "";
+  let password = '';
+  let privateKey = '';
 
-  export function importAccount() {
+  let buttonText = 'Convert';
+  let buttonDisabled = false;
+
+  function disableButton(text) {
+    buttonText = text;
+    buttonDisabled = true;
+  }
+
+  function enableButton() {
+    buttonText = 'Convert';
+    buttonDisabled = false;
+  }
+
+  export async function importAccount() {
     if (!privateKey) {
-      alert("Please input a private key!");
+      alert('Please input a private key!');
       return;
     }
     try {
       const acct = new wallet.Account(privateKey);
       if (password) {
-        if (acct.tryGet("encrypted")) {
-          acct.decrypt(password);
-        } else [acct.encrypt(password)];
+        if (acct.tryGet('encrypted')) {
+          disableButton('Decrypting...');
+          await acct.decrypt(password);
+        } else {
+          disableButton('Encrypting...');
+          await acct.encrypt(password);
+        }
       }
       $accounts = [...$accounts, acct];
+      enableButton();
     } catch (e) {
       alert(e);
+      enableButton();
     }
   }
 </script>
 
-<div class="flex flex-col justify-items-center">
+<div class="flex flex-col justify-items-center bg-white">
   <p class="m-1">Import an existing key</p>
-  <input
-    class="input flex-grow"
-    bind:value={privateKey}
-    type="text"
-    placeholder="Private Key"
-  />
-  <input
-    class="input flex-grow"
-    bind:value={password}
-    type="password"
-    placeholder="Password (Optional)"
-  />
-  <button class="btn" id="convert" on:click={importAccount}>Convert</button>
+  <SimpleInput bind:value={privateKey} type="text" placeholder="Private Key" />
+  <SimpleInput bind:value={password} type="password" placeholder="Password (Optional)" />
+  <SimpleButton on:click={importAccount} disabled={buttonDisabled}>{buttonText}</SimpleButton>
 </div>

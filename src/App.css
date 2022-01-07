@@ -1,15 +1,22 @@
+/* Write your global styles here, in PostCSS syntax */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  background-image: url("./bg.png");
+  background-image: url('./bg.svg');
   background-repeat: repeat;
+  background-size: 256px 256px;
 }
 
+/*
 .flex.column {
-flex-direction: column;
+  flex-direction: column;
 }
-
 
 .App {
   display: flex;
@@ -33,24 +40,35 @@ flex-direction: column;
 
 #splash {
   text-align: center;
-  flex:none;
+  flex: none;
 }
 
 #print-foot {
-  flex:none;
-  min-height: 20%
-}
-
+  flex: none;
+  min-height: 20%;
+} */
 
 @media print {
   .wallet-page {
     width: 210mm;
     page-break-after: always;
   }
-  .ribbon {display:none}
-  #splash {display:none}
-  #form {display: none}
-  #print-foot {display: none}
-  #foot {display: none}
-  .no-print{display: none}
+  .ribbon {
+    display: none;
+  }
+  #splash {
+    display: none;
+  }
+  #form {
+    display: none;
+  }
+  #print-foot {
+    display: none;
+  }
+  #foot {
+    display: none;
+  }
+  .no-print {
+    display: none;
+  }
 }
