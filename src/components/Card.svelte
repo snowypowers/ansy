@@ -1,4 +1,4 @@
-<div class="flex-none rounded-md bg-white border-2 border-grey">
+<div class="flex-none rounded-md border-2 border-grey">
   <slot />
 </div>
 

@@ -60,24 +60,3 @@
     <Footer />
   </div>
 </main>
-
-<!-- <style global lang="postcss">
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-
-  @layer components {
-    .btn {
-      @apply focus:outline-none rounded-lg border-2 border-green-700 hover:border-gray-500 p-1;
-    }
-    .btn-red {
-      @apply focus:outline-none rounded-lg border-2 bg-red-500 hover:bg-red-700 text-white p-1;
-    }
-    .input {
-      @apply focus:outline-none flex-grow rounded-lg bg-gray-50 border focus:border-green-500 p-1;
-    }
-    .page-break {
-      page-break-after: always;
-    }
-  }
-</style> -->

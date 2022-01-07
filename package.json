@@ -1,6 +1,6 @@
 {
   "name": "ansy",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "private": true,
   "main": "src/index.js",
   "type": "module",
@@ -9,7 +9,7 @@
   "homepage": "https://snowypowers.github.io/ansy/",
   "scripts": {
     "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
+    "build": "svelte-kit build && touch docs/.nojekyll",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",

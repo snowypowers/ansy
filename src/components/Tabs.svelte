@@ -7,14 +7,14 @@
 
 <ul class="flex flex-wrap border-b-2 list-none">
   {#each items as item}
-    <li class={activeTabValue === item.value ? "active" : ""}>
+    <li class={activeTabValue === item.value ? 'active' : ''}>
       <span on:click={handleClick(item.value)}>{item.label}</span>
     </li>
   {/each}
 </ul>
 {#each items as item}
   {#if activeTabValue == item.value}
-    <div class="mb-10 p-5 border border-t-0 rounded rounded-t-none">
+    <div class="mb-10 p-5 border border-t-0 rounded rounded-t-none bg-white">
       <svelte:component this={item.component} />
     </div>
   {/if}

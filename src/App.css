@@ -13,41 +13,6 @@ body {
   background-size: 256px 256px;
 }
 
-/*
-.flex.column {
-  flex-direction: column;
-}
-
-.App {
-  display: flex;
-  min-height: 86vh;
-  flex-direction: column;
-  margin: 0 auto;
-  max-width: 960px;
-}
-
-.middle {
-  margin: 0 auto;
-}
-
-.center-text {
-  text-align: center;
-}
-
-#root {
-  height: 100%;
-}
-
-#splash {
-  text-align: center;
-  flex: none;
-}
-
-#print-foot {
-  flex: none;
-  min-height: 20%;
-} */
-
 @media print {
   .wallet-page {
     width: 210mm;

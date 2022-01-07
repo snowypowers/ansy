@@ -56,7 +56,7 @@ As a normal user,
 
 Download the package either from [Release](https://github.com/snowypowers/ansy/releases) or the ZIP button.
 
-Extract the zip and open `public/index.html` using your browser.
+Extract the zip and open `docs/index.html` using your browser.
 
 ## License
 
